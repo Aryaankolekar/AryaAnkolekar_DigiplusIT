@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Manipulation</title>
+    <style>
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        select, input, button {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Node Manipulation</h1>
+
+    <label for="nodeType">Select Node Type:</label>
+    <select id="nodeType">
+        <option value="single">Single Node</option>
+        <option value="parent">Parent Node</option>
+        <option value="child">Child Node</option>
+    </select>
+
+    <label for="nodeValue">Node Value:</label>
+    <input type="text" id="nodeValue">
+
+    <button onclick="addNode()">Add Node</button>
+
+    <label for="nodeName">Selected Node</label>
+    <input type="text" id="nodeName">
+
+
+    <button onclick="updateNode()">Update Node</button>
+    <button onclick="updateNode()">Decline Node</button>
+
+    <div id="output"></div>
+
+    <script>
+        function addNode() {
+            var nodeType = document.getElementById("nodeType").value;
+            var nodeValue = document.getElementById("nodeValue").value;
+
+            var newNode = document.createElement("div");
+            newNode.textContent = nodeValue;
+
+            if (nodeType === "parent") {
+                newNode.classList.add("parent");
+            } else if (nodeType === "child") {
+                newNode.classList.add("child");
+            }
+
+            document.getElementById("output").appendChild(newNode);
+        }
+
+        function updateNode() {
+            var nodeValue = document.getElementById("nodeValue").value;
+            var selectedNode = document.querySelector(".selected");
+
+            if (selectedNode) {
+                selectedNode.textContent = nodeValue;
+            }
+        }
+
+        document.getElementById("output").addEventListener("click", function(event) {
+            var selectedNode = document.querySelector(".selected");
+
+            if (selectedNode) {
+                selectedNode.classList.remove("selected");
+            }
+
+            if (event.target.classList.contains("parent") || event.target.classList.contains("child")) {
+                event.target.classList.add("selected");
+            }
+        });
+    </script>
+</body>
+</html>
